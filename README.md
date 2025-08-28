@@ -16,8 +16,8 @@ A Python-based implementation of **Decision Trees** built from scratch, complete
 ## 📂 Project Structure  
 ```bash
 DecisionTreeVisualizer/
-│── weekend.csv          # Input dataset
-│── decision_tree.py     # Main script with tree logic + visualization
+│── Dataset.csv          # Input dataset
+│── Tree.py     # Main script with tree logic + visualization
 │── tree_entropy.png     # Tree built using entropy
 │── tree_gini.png        # Tree built using gini index
 │── README.md            # You are here
@@ -70,7 +70,7 @@ Download from [Graphviz.org](https://graphviz.gitlab.io/download/) and add it to
 Run the script with your dataset (weekend.csv as default):
 
 ```bash
-python decision_tree.py
+python Tree.py
 ```
 
 This will generate:
