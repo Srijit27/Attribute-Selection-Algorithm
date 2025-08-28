@@ -1,106 +1,122 @@
-# 🎯 Attribute Selection Algorithm - Decision Trees
+# Attribute Selection Algorithm : Decision Tree Visualizer  
 
-## 📌 Introduction
+A Python-based implementation of **Decision Trees** built from scratch, complete with **Entropy (Information Gain)** and **Gini Index** as splitting criteria. The project also includes a **Graphviz-powered visualizer** to generate crisp, interpretable tree diagrams.  
 
-Decision Trees are one of the most widely used **supervised learning methods** for both **classification** and **regression** tasks.
 
-They work by **recursively splitting** a dataset into smaller subsets based on attribute values, forming a **tree structure**:
+## 🚀 Features  
+- **Custom Entropy & Gini Functions** – Implemented from scratch, no external ML libraries.  
+- **Dynamic Tree Builder** – Recursively constructs decision trees using chosen impurity measures.  
+- **Dual Criteria Support**  
+  - *Entropy (Information Gain)* → ID3-style splitting  
+  - *Gini Index* → CART-style splitting  
+- **Interactive Visualizations** – Trees are exported as PNGs with Graphviz.  
+- **Human-readable structure** – Leaf nodes represent final decisions, internal nodes show feature splits.  
 
-- 🔹 **Internal Node** → Attribute test  
-- 🔹 **Branch** → Outcome of the test  
-- 🔹 **Leaf Node** → Class label or decision
 
-A critical component of decision tree construction is the **Attribute Selection Algorithm**, which identifies the **best attribute** to split the dataset at each step. The selection is driven by **impurity measures** such as:
-
-- Entropy  
-- Information Gain  
-- Gini Index  
-
----
-
-## 📐 Formulas Used
-
-### 1. 📊 Entropy
-Entropy measures the **impurity or uncertainty** in a dataset. It is calculated as:
-
-```
-H(S) = − ∑ (pi * log₂(pi))
-```
-Where:  
-- `pi` is the probability of class `i`  
-- Summation runs over all possible classes
-
----
-
-### 2. 📈 Information Gain
-Information Gain measures the **reduction in entropy** after splitting on an attribute:
-
-```
-IG(S, A) = H(S) − ∑ (|Sv| / |S|) * H(Sv)
+## 📂 Project Structure  
+```bash
+DecisionTreeVisualizer/
+│── weekend.csv          # Input dataset
+│── decision_tree.py     # Main script with tree logic + visualization
+│── tree_entropy.png     # Tree built using entropy
+│── tree_gini.png        # Tree built using gini index
+│── README.md            # You are here
 ```
 
-Where:  
-- `S` = original set  
-- `Sv` = subset for which attribute `A` has value `v`  
-- `H(S)` = entropy of original set  
-- `H(Sv)` = entropy of subset
 
----
+## ⚙️ How It Works
 
-### 3. ⚖️ Gini Index
-The **Gini Index** is another measure of impurity:
+1. **Entropy & Gini Calculation**  
+   - Computes uncertainty of class labels.  
+   - Lower impurity ⇒ better split.  
 
+2. **Attribute Selection**  
+   - Recursively selects the best feature based on chosen metric (*Entropy* or *Gini*).  
+
+3. **Tree Construction**  
+   - Splits dataset into subsets by feature values.  
+   - Continues until pure leaves or no features remain.  
+
+4. **Visualization**  
+   - Uses **Graphviz (Digraph)** to generate interpretable flowchart-like trees.  
+
+
+## 🛠 Installation  
+
+Install the required Python libraries:  
+
+```bash
+pip install pandas numpy graphviz
 ```
-Gini(S) = 1 − ∑ (pi²)
+
+Also, install the Graphviz system package (needed for rendering images):
+
+### Debian/Ubuntu
+```bash
+sudo apt-get update && sudo apt-get install -y graphviz
 ```
 
-For a given attribute `A`, the **weighted Gini Index** is:
-
+### macOS (Homebrew)
+```bash
+brew install graphviz
 ```
-GiniIndex(S, A) = ∑ (|Sv| / |S|) * Gini(Sv)
+
+### Windows
+Download from [Graphviz.org](https://graphviz.gitlab.io/download/) and add it to your PATH.
+
+
+## 📊 Usage
+
+Run the script with your dataset (weekend.csv as default):
+
+```bash
+python decision_tree.py
 ```
 
----
+This will generate:
 
-## 📂 Dataset Used
+```bash
+tree_entropy.png   # Decision tree using Information Gain
+tree_gini.png      # Decision tree using Gini Index
+```
 
-| Weather | Parents | Financial Condition | Decision     |
-|---------|---------|---------------------|--------------|
-| Sunny   | Yes     | Poor                | Cinema       |
-| Sunny   | No      | Rich                | Play Tennis  |
-| Windy   | Yes     | Poor                | Cinema       |
-| Windy   | No      | Poor                | Cinema       |
-| Windy   | No      | Rich                | Shopping     |
-| Rainy   | Yes     | Poor                | Cinema       |
-| Rainy   | No      | Poor                | Stay in      |
-| Rainy   | No      | Rich                | Shopping     |
+Both trees will be saved in the working directory and usually open automatically.
 
----
+Sure! Here’s the input part formatted as a table that you can directly paste into your README:
 
-## 🌳 Induced Graphs
+## 📊 Example Input Data
 
-### ✔️ Decision Tree using Entropy (Information Gain)
+Here is an example of the input dataset used in the project:
 
-![Entropy Tree](tree_entropy.png)
+| Weekend | Weather | Parents | Financial Condition | Decision     |
+|---------|---------|---------|---------------------|--------------|
+| W1      | Sunny   | Yes     | Rich                | Cinema       |
+| W2      | Sunny   | No      | Rich                | Play Tennis  |
+| W3      | Windy   | Yes     | Rich                | Cinema       |
+| W4      | Rainy   | Yes     | Poor                | Cinema       |
+| W5      | Rainy   | No      | Rich                | Stay in      |
+| W6      | Rainy   | Yes     | Poor                | Cinema       |
+| W7      | Windy   | No      | Poor                | Cinema       |
+| W8      | Windy   | No      | Rich                | Shopping     |
+| W9      | Windy   | Yes     | Rich                | Cinema       |
+| W10     | Sunny   | No      | Rich                | Play Tennis  |
 
----
 
-### ✔️ Decision Tree using Gini Index
+## 🔍 Example Output
 
-![Gini Tree](tree_gini.png)
+- 🟦 **Feature Nodes** → Light-blue rounded boxes
+- 🟩 **Leaf Nodes** → Green ellipses (final decision)
 
----
+📌 **Entropy-based trees maximize information gain**  
 
-## ✅ Summary
+<div align="center">
+    <img width="894" height="413" alt="Entropy Tree" src="https://github.com/user-attachments/assets/2fb095ba-5a25-457c-b449-bcb756c3da0c" />
+</div>
 
-This project demonstrates how **attribute selection techniques** influence decision tree construction using **Entropy** and **Gini Index**. The graphical representations make it easier to interpret the decision paths.
 
----
+📌 **Gini-based trees minimize class impurity**
 
-## 📎 Files Included
+<div align="center">
+    <img width="535" height="413" alt="Gini Tree" src="https://github.com/user-attachments/assets/eed20ab2-cf13-4bf6-be7c-316271f04a21" />
+</div>
 
-- `Tree.py` → Python code implementing decision trees with entropy and gini  
-- `Dataset.csv` → Training dataset  
-- `tree_entropy.png` → Visualized decision tree using entropy  
-- `tree_gini.png` → Visualized decision tree using Gini index  
-- `README.md` → Project documentation
